@@ -485,8 +485,8 @@ const dataFormAddRules = {
       trigger: ["change", "blur"],
     },
     {
-      pattern: /^[a-zA-Z0-9!@#$%^&*()_+-=]{6,32}$/,
-      message: "Username format is incorrect",
+      pattern: /^[a-zA-Z0-9!@#$%^&*()_+\-=[\]{};':"\\|,.<>\/?`~]{6,32}$/,
+      // message: "Pass format is incorrect", // 取消提示
       trigger: ["change", "blur"],
     },
   ],
@@ -497,8 +497,8 @@ const dataFormAddRules = {
       trigger: ["change", "blur"],
     },
     {
-      pattern: /^[a-zA-Z0-9!@#$%^&*()_+-=]{6,32}$/,
-      message: "Pass format is incorrect",
+      pattern: /^[a-zA-Z0-9!@#$%^&*()_+\-=[\]{};':"\\|,.<>\/?`~]{6,32}$/,
+      // message: "Pass format is incorrect", // 取消提示
       trigger: ["change", "blur"],
     },
   ],
@@ -509,8 +509,8 @@ const dataFormAddRules = {
       trigger: ["change", "blur"],
     },
     {
-      pattern: /^[a-zA-Z0-9!@#$%^&*()_+-=]{6,32}$/,
-      message: "ConPass format is incorrect",
+      : /^[a-zA-Z0-9!@#$%^&*()_+\-=[\]{};':"\\|,.<>\/?`~]{6,32}$/,
+      // message: "Pass format is incorrect", // 取消提示
       trigger: ["change", "blur"],
     },
   ],
@@ -540,22 +540,22 @@ const dataFormAddRules = {
 const dataFormUpdateRules = {
   username: [
     {
-      pattern: /^[a-zA-Z0-9!@#$%^&*()_+-=]{6,32}$/,
-      message: "Username format is incorrect",
+      pattern: /^[a-zA-Z0-9!@#$%^&*()_+\-=[\]{};':"\\|,.<>\/?`~]{6,32}$/,
+      // message: "Pass format is incorrect", // 取消提示
       trigger: ["change", "blur"],
     },
   ],
   pass: [
     {
-      pattern: /^[a-zA-Z0-9!@#$%^&*()_+-=]{6,32}$/,
-      message: "Pass format is incorrect",
+      pattern: /^[a-zA-Z0-9!@#$%^&*()_+\-=[\]{};':"\\|,.<>\/?`~]{6,32}$/,
+      // message: "Pass format is incorrect", // 取消提示
       trigger: ["change", "blur"],
     },
   ],
   conPass: [
     {
-      pattern: /^[a-zA-Z0-9!@#$%^&*()_+-=]{6,32}$/,
-      message: "Pass format is incorrect",
+      pattern: /^[a-zA-Z0-9!@#$%^&*()_+\-=[\]{};':"\\|,.<>\/?`~]{6,32}$/,
+      // message: "Pass format is incorrect", // 取消提示
       trigger: ["change", "blur"],
     },
   ],
