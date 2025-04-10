@@ -22,7 +22,8 @@ init_var() {
   ssh_local_forwarded_port=8082
 
   translation_file_content=""
-  translation_file_base_url="https://raw.githubusercontent.com/jonssonyan/h-ui/refs/heads/main/local/"
+  # 修改为你自己的翻译文件存放路径
+  translation_file_base_url="https://raw.githubusercontent.com/Cosdyan/h-ui/refs/heads/main/local/"
   translation_file="en.json"
 }
 
@@ -90,9 +91,10 @@ check_sys() {
     exit 1
   fi
 
-  can_connect www.google.com
+  # 改为检测 github.com 而非 www.google.com
+  can_connect github.com
   if [[ "$?" == "1" ]]; then
-    echo_content red "---> Network connection failed"
+    echo_content red "---> Network connection failed (cannot ping github.com)"
     exit 1
   fi
 
@@ -266,6 +268,7 @@ install_h_ui_docker() {
   read -r -p "Please enter the Time zone of H UI (default: Asia/Shanghai): " h_ui_time_zone
   [[ -z "${h_ui_time_zone}" ]] && h_ui_time_zone="Asia/Shanghai"
 
+  # 修改 Docker 镜像为自己的
   docker run -d --cap-add=NET_ADMIN \
     --name h-ui --restart always \
     --network=host \
@@ -274,7 +277,7 @@ install_h_ui_docker() {
     -v /h-ui/data:/h-ui/data \
     -v /h-ui/export:/h-ui/export \
     -v /h-ui/logs:/h-ui/logs \
-    jonssonyan/h-ui"${hui_docker_version}" \
+    cosdyan/h-ui"${hui_docker_version}" \
     ./h-ui -p ${h_ui_port}
   sleep 3
   echo_content yellow "h-ui Panel Port: ${h_ui_port}"
@@ -297,7 +300,8 @@ upgrade_h_ui_docker() {
     exit 0
   fi
 
-  latest_version=$(curl -Ls "https://api.github.com/repos/jonssonyan/h-ui/releases/latest" | grep '"tag_name":' | sed 's/.*"tag_name": "\(.*\)",.*/\1/')
+  # 修改下面的仓库 API 为你自己的 GitHub 仓库
+  latest_version=$(curl -Ls "https://api.github.com/repos/Cosdyan/h-ui/releases/latest" | grep '"tag_name":' | sed 's/.*"tag_name": "\(.*\)",.*/\1/')
   current_version=$(docker exec h-ui ./h-ui -v | sed -n 's/.*version \([^\ ]*\).*/\1/p')
   if [[ "${latest_version}" == "${current_version}" ]]; then
     echo_content skyBlue "---> H UI is already the latest version"
@@ -306,7 +310,7 @@ upgrade_h_ui_docker() {
 
   echo_content green "---> Upgrade H UI"
   docker rm -f h-ui
-  docker rmi jonssonyan/h-ui
+  docker rmi cosdyan/h-ui 2>/dev/null
 
   read -r -p "Please enter the port of H UI (default: 8081): " h_ui_port
   [[ -z "${h_ui_port}" ]] && h_ui_port="8081"
@@ -321,7 +325,7 @@ upgrade_h_ui_docker() {
     -v /h-ui/data:/h-ui/data \
     -v /h-ui/export:/h-ui/export \
     -v /h-ui/logs:/h-ui/logs \
-    jonssonyan/h-ui \
+    cosdyan/h-ui \
     ./h-ui -p ${h_ui_port}
   echo_content skyBlue "---> H UI upgrade successful"
 }
@@ -338,7 +342,7 @@ uninstall_h_ui_docker() {
 
   echo_content green "---> Uninstall H UI"
   docker rm -f h-ui
-  docker images jonssonyan/h-ui -q | xargs -r docker rmi -f
+  docker images cosdyan/h-ui -q | xargs -r docker rmi -f
   rm -rf /h-ui/
   remove_forward
   echo_content skyBlue "---> H UI uninstall successful"
@@ -372,14 +376,16 @@ install_h_ui_systemd() {
 
   export GIN_MODE=release
 
-  bin_url=https://github.com/jonssonyan/h-ui/releases/latest/download/h-ui-linux-${get_arch}
+  # 修改为你自己的仓库
+  bin_url=https://github.com/Cosdyan/h-ui/releases/latest/download/h-ui-linux-${get_arch}
   if [[ "latest" != "${hui_systemd_version}" ]]; then
-    bin_url=https://github.com/jonssonyan/h-ui/releases/download/${hui_systemd_version}/h-ui-linux-${get_arch}
+    bin_url=https://github.com/Cosdyan/h-ui/releases/download/${hui_systemd_version}/h-ui-linux-${get_arch}
   fi
 
   curl -fsSL "${bin_url}" -o /usr/local/h-ui/h-ui &&
     chmod +x /usr/local/h-ui/h-ui &&
-    curl -fsSL https://raw.githubusercontent.com/jonssonyan/h-ui/main/h-ui.service -o /etc/systemd/system/h-ui.service &&
+    # 同样把 service 文件改为从你自己的仓库下载
+    curl -fsSL https://raw.githubusercontent.com/Cosdyan/h-ui/main/h-ui.service -o /etc/systemd/system/h-ui.service &&
     sed -i "s|^ExecStart=.*|ExecStart=/usr/local/h-ui/h-ui -p ${h_ui_port}|" "/etc/systemd/system/h-ui.service" &&
     systemctl daemon-reload &&
     systemctl enable h-ui &&
@@ -401,7 +407,8 @@ upgrade_h_ui_systemd() {
     exit 0
   fi
 
-  latest_version=$(curl -Ls "https://api.github.com/repos/jonssonyan/h-ui/releases/latest" | grep '"tag_name":' | sed 's/.*"tag_name": "\(.*\)",.*/\1/')
+  # 改为从你自己的仓库获取最新版本号
+  latest_version=$(curl -Ls "https://api.github.com/repos/Cosdyan/h-ui/releases/latest" | grep '"tag_name":' | sed 's/.*"tag_name": "\(.*\)",.*/\1/')
   current_version=$(/usr/local/h-ui/h-ui -v | sed -n 's/.*version \([^\ ]*\).*/\1/p')
   if [[ "${latest_version}" == "${current_version}" ]]; then
     echo_content skyBlue "---> H UI is already the latest version"
@@ -412,7 +419,7 @@ upgrade_h_ui_systemd() {
   if [[ $(systemctl is-active h-ui) == "active" ]]; then
     systemctl stop h-ui
   fi
-  curl -fsSL https://github.com/jonssonyan/h-ui/releases/latest/download/h-ui-linux-${get_arch} -o /usr/local/h-ui/h-ui &&
+  curl -fsSL https://github.com/Cosdyan/h-ui/releases/latest/download/h-ui-linux-${get_arch} -o /usr/local/h-ui/h-ui &&
     chmod +x /usr/local/h-ui/h-ui &&
     systemctl restart h-ui
   echo_content skyBlue "---> H UI upgrade successful"
@@ -484,8 +491,8 @@ main() {
   echo_content red "=============================================================="
   echo_content skyBlue "$(get_translation ".menu.recommend_os"): CentOS 8+/Ubuntu 20+/Debian 11+"
   echo_content skyBlue "$(get_translation ".menu.description")"
-  echo_content skyBlue "$(get_translation ".menu.author"): jonssonyan <https://jonssonyan.com>"
-  echo_content skyBlue "Github: https://github.com/jonssonyan/h-ui"
+  echo_content skyBlue "$(get_translation ".menu.author"): cosdyan <https://github.com/Cosdyan/h-ui>"
+  echo_content skyBlue "Github: https://github.com/Cosdyan/h-ui"
   echo_content red "=============================================================="
   echo_content yellow "1. $(get_translation ".menu.install_hui_systemd")"
   echo_content yellow "2. $(get_translation ".menu.upgrade_h_ui_systemd")"
