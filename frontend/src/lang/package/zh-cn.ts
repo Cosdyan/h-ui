@@ -105,13 +105,15 @@ export default {
     hysteria2TrafficTime: "Hysteria2 流量倍数",
     huiCrtPath: "H UI CRT 证书路径",
     huiKeyPath: "H UI KEY 证书路径",
+    uploadCrtFile: "上传 CRT 证书",
+    uploadKeyFile: "上传 KEY 证书",
     restartServer: "重启面板",
     restartTip: "正在重启，请刷新",
     useHysteria2Cert: "使用 Hysteria2 的证书",
     huiHttps: "面板开启 https",
     resetTrafficCron: "重设流量计划任务",
     resetTrafficCronTip:
-      "计划任务表达式，参考：https://pkg.go.dev/github.com/robfig/cron?utm_source=godoc#hdr-Predefined_schedules",
+      "计划任务表达式，参考：https://pkg.go.dev/github.com/robfig/cron/v3",
     resetTrafficMonth: "每月运行一次，每月第一天午夜",
     resetTrafficWeek: "每周运行一次，周六/周日午夜",
   },
@@ -291,6 +293,7 @@ export default {
           bindIPv4: "要绑定的本地 IPv4 地址。",
           bindIPv6: "要绑定的本地 IPv6 地址。",
           bindDevice: "要绑定的本地网卡。",
+          fastOpen: "启用 TCP 快速打开。",
         },
       },
       trafficStats: {
@@ -305,6 +308,7 @@ export default {
           url: "要代理的网站的 URL。",
           rewriteHost:
             "是否重写 Host 头以匹配被代理的网站。如果目标网站通过 Host 识别请求的网站，这个选项是必须的。",
+          insecure: "禁用对代理网站的 TLS 验证。",
         },
         string: {
           content: "要返回的字符串。",

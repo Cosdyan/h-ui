@@ -121,6 +121,7 @@ export interface Hysteria2ServerConfig {
     proxy?: {
       url: string;
       rewriteHost: boolean;
+      insecure: boolean;
     };
     string?: {
       content: string;
@@ -234,6 +235,7 @@ export const defaultHysteria2ServerConfig: Hysteria2ServerConfig = {
     proxy: {
       url: "",
       rewriteHost: true,
+      insecure: false,
     },
     string: {
       content: "hello stupid world",
@@ -263,6 +265,7 @@ export interface Hysteria2ServerConfigOutbound {
     bindIPv4?: string;
     bindIPv6?: string;
     bindDevice?: string;
+    fastOpen?: boolean;
   };
 }
 
@@ -284,6 +287,7 @@ export const defaultHysteria2ServerConfigOutbound: Hysteria2ServerConfigOutbound
       bindIPv4: undefined,
       bindIPv6: undefined,
       bindDevice: undefined,
+      fastOpen: false,
     },
   };
 

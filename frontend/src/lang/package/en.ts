@@ -106,13 +106,15 @@ export default {
     hysteria2TrafficTime: "Hysteria2 Traffic Time",
     huiCrtPath: "H UI CRT File Path",
     huiKeyPath: "H UI KEY File Path",
+    uploadCrtFile: "Upload CRT File",
+    uploadKeyFile: "Upload KEY File",
     restartServer: "Restart Panel",
     restartTip: "Restarting, please refresh",
     useHysteria2Cert: "Use Hysteria2 cert",
     huiHttps: "Open https on the panel",
     resetTrafficCron: "Reset traffic schedule task",
     resetTrafficCronTip:
-      "Scheduled task expression, reference: https://pkg.go.dev/github.com/robfig/cron?utm_source=godoc#hdr-Predefined_schedules",
+      "Scheduled task expression, reference: https://pkg.go.dev/github.com/robfig/cron/v3",
     resetTrafficMonth: "Run once a month, midnight, first of month",
     resetTrafficWeek: "Run once a week, midnight between Sat/Sun",
   },
@@ -303,6 +305,7 @@ export default {
           bindIPv4: "The local IPv4 address to bind to.",
           bindIPv6: "The local IPv6 address to bind to.",
           bindDevice: "The local network interface to bind to.",
+          fastOpen: "Enable TCP fast open.",
         },
       },
       trafficStats: {
@@ -317,6 +320,7 @@ export default {
           url: "The URL of the website to proxy.",
           rewriteHost:
             "Whether to rewrite the Host header to match the proxied website. This is required if the target web server uses Host to determine which site to serve.",
+          insecure: "Disable TLS verification for the proxied website.",
         },
         string: {
           content: "The string to return.",
