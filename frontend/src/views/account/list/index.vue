@@ -486,7 +486,6 @@ const dataFormAddRules = {
     },
     {
       pattern: /^[a-zA-Z0-9!@#$%^&*()_+\-=[\]{};':"\\|,.<>\/?`~]{6,32}$/,
-      // message: "Pass format is incorrect", // 取消提示
       trigger: ["change", "blur"],
     },
   ],
@@ -498,7 +497,6 @@ const dataFormAddRules = {
     },
     {
       pattern: /^[a-zA-Z0-9!@#$%^&*()_+\-=[\]{};':"\\|,.<>\/?`~]{6,32}$/,
-      // message: "Pass format is incorrect", // 取消提示
       trigger: ["change", "blur"],
     },
   ],
@@ -509,8 +507,7 @@ const dataFormAddRules = {
       trigger: ["change", "blur"],
     },
     {
-      : /^[a-zA-Z0-9!@#$%^&*()_+\-=[\]{};':"\\|,.<>\/?`~]{6,32}$/,
-      // message: "Pass format is incorrect", // 取消提示
+      pattern: /^[a-zA-Z0-9!@#$%^&*()_+\-=[\]{};':"\\|,.<>\/?`~]{6,32}$/,
       trigger: ["change", "blur"],
     },
   ],
@@ -541,21 +538,18 @@ const dataFormUpdateRules = {
   username: [
     {
       pattern: /^[a-zA-Z0-9!@#$%^&*()_+\-=[\]{};':"\\|,.<>\/?`~]{6,32}$/,
-      // message: "Pass format is incorrect", // 取消提示
       trigger: ["change", "blur"],
     },
   ],
   pass: [
     {
       pattern: /^[a-zA-Z0-9!@#$%^&*()_+\-=[\]{};':"\\|,.<>\/?`~]{6,32}$/,
-      // message: "Pass format is incorrect", // 取消提示
       trigger: ["change", "blur"],
     },
   ],
   conPass: [
     {
       pattern: /^[a-zA-Z0-9!@#$%^&*()_+\-=[\]{};':"\\|,.<>\/?`~]{6,32}$/,
-      // message: "Pass format is incorrect", // 取消提示
       trigger: ["change", "blur"],
     },
   ],
