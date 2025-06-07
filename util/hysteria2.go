@@ -32,10 +32,10 @@ func DownloadHysteria2(version string) error {
 	}
 
 	resp, err := http.Get(url)
-	defer resp.Body.Close()
 	if err != nil {
 		return fmt.Errorf("failed to download file: %v", err)
 	}
+	defer resp.Body.Close()
 
 	if resp.StatusCode != http.StatusOK {
 		return fmt.Errorf("failed to download file, status code: %d", resp.StatusCode)
